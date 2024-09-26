@@ -3,12 +3,10 @@ def main():
     text = get_book_text(book_path)
     counted_words = count_words(text)
     counted_chars = count_chars(text)
-    print(f"--- Begin report of {book_path} ---")
-    print(f"There are {counted_words} in this document")
-    print("")
-    for chars in counted_chars:
-        print(f"The '{chars}' character was found {counted_chars[chars]} times")
-    print("--- End Report ---")
+    real_char_list = make_dict_into_list(counted_chars)
+    real_char_list.sort(reverse=True, key=sort_on)
+    breakdown(book_path, counted_words, real_char_list)
+    
 
 def get_book_text(path):
     with open(path) as f:
@@ -33,6 +31,29 @@ def count_chars(text):
     return char_total
 
 
+# A function that takes a dictionary and returns the value of the "num" key
+# This is how the `.sort()` method knows how to sort the list of dictionaries
+def sort_on(dict):
+    return dict["count"]
+
+
+def make_dict_into_list(dict):
+    dictionary_list = []
+    for char, count in dict.items():
+        if char.isalpha() == True:
+            transition_dict = {"char": char, "count" : count}
+            dictionary_list.append(transition_dict)
+    return dictionary_list
+
+
+
+def breakdown(name, words, characters):
+    print(f"--- Begin report of {name} ---")
+    print(f"There are {words} in this document")
+    print("")
+    for chars in characters:
+        print(f"The '{chars["char"]}' character was found {chars["count"]} times")
+    print("--- End Report ---")
     
 
 main()
