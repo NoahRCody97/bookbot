@@ -1,10 +1,14 @@
 def main():
     book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
-    #print(text)
-    #count_words(text)
+    counted_words = count_words(text)
     counted_chars = count_chars(text)
-    print(counted_chars)
+    print(f"--- Begin report of {book_path} ---")
+    print(f"There are {counted_words} in this document")
+    print("")
+    for chars in counted_chars:
+        print(f"The '{chars}' character was found {counted_chars[chars]} times")
+    print("--- End Report ---")
 
 def get_book_text(path):
     with open(path) as f:
@@ -15,7 +19,7 @@ def count_words(text):
     words = text.split()
     for word in words:
         word_count += 1
-    print(f"There are {word_count} in this document")
+    return word_count
 
 def count_chars(text):
     lower_case_text = text.lower()
