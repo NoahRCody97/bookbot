@@ -1,6 +1,7 @@
 def main():
     import os.path
-    book_name = "books/" + input("Type the name of the text file you'd like to parse: ")
+    book = input("Type the name of the text file you'd like to parse: ")
+    book_name = "books/" + book
     #book_path = "books/frankenstein.txt"
     book_path = os.path.abspath(book_name)
 
@@ -10,7 +11,7 @@ def main():
         counted_chars = count_chars(text)
         real_char_list = make_dict_into_list(counted_chars)
         real_char_list.sort(reverse=True, key=sort_on)
-        breakdown(book_path, counted_words, real_char_list)
+        breakdown(book, counted_words, real_char_list)
     except Exception as e:
         print(e)
     
